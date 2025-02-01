@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Teste_001.Application.Services;
 using Teste_001.Application.ViewModels;
@@ -27,6 +28,7 @@ namespace Teste_001.api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var videos = await _videoService.GetAllAsync();
