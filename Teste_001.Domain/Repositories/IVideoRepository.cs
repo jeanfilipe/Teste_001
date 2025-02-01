@@ -10,5 +10,6 @@ namespace Teste_001.Domain.Repositories
         Task UpdateAsync(Video video);
         Task DeleteAsync(int id);
         Task AddVideosAsync(List<Video> videos);
+        Task<List<Video>> SearchVideosAsync(string? title, TimeSpan? maxDuration, string? author, DateTime? after, string? q);
     }
 }

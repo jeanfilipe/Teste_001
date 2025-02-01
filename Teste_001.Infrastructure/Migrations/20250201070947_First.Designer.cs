@@ -11,7 +11,7 @@ using Teste_001.Infrastructure.Data.Context;
 namespace Teste_001.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250201063311_First")]
+    [Migration("20250201070947_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -68,6 +68,11 @@ namespace Teste_001.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<TimeSpan>("Duration")

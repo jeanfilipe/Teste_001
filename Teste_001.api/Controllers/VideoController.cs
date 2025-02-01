@@ -68,5 +68,28 @@ namespace Teste_001.api.Controllers
             await _videoService.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchVideos(
+        [FromQuery] string? title,
+        [FromQuery] string? maxDuration,
+        [FromQuery] string? author,
+        [FromQuery] string? after,
+        [FromQuery] string? q)
+        {
+            try
+            {
+                TimeSpan? durationFilter = string.IsNullOrEmpty(maxDuration) ? null : TimeSpan.Parse(maxDuration);
+                DateTime? afterFilter = string.IsNullOrEmpty(after) ? null : DateTime.Parse(after);
+
+                var videos = await _videoService.SearchVideosAsync(title, durationFilter, author, afterFilter, q);
+
+                return Ok(videos);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Erro ao buscar vídeos", error = ex.Message });
+            }
+        }
     }
 }

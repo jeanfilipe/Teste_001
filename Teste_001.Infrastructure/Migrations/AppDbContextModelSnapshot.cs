@@ -67,6 +67,11 @@ namespace Teste_001.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("TEXT");
 

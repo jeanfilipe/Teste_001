@@ -6,6 +6,7 @@ namespace Teste_001.Infrastructure.Entities
     {
         public string VideoId { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public TimeSpan Duration { get; set; }
         public string Author { get; set; } = string.Empty;
         public DateTime CreationDate { get; set; }

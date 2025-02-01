@@ -46,6 +46,7 @@ namespace Teste_001.Application.Services
             video.Duration = videoVm.Duration;
             video.CreationDate = videoVm.CreationDate;
             video.IsActive = videoVm.IsActive;
+            video.Description = video.Description;
 
             await _videoRepository.UpdateAsync(video);
         }
@@ -65,7 +66,8 @@ namespace Teste_001.Application.Services
                 Author = video.Author,
                 IsActive = video.IsActive,
                 Duration = video.Duration,
-                CreationDate = video.CreationDate
+                CreationDate = video.CreationDate,
+                Description = video.Description
             };
         }
 
@@ -79,7 +81,9 @@ namespace Teste_001.Application.Services
                 Author = videoVm.Author,
                 IsActive = videoVm.IsActive,
                 Duration = videoVm.Duration,
-                CreationDate = videoVm.CreationDate
+                CreationDate = videoVm.CreationDate,
+                Description = videoVm.Description
+
             };
         }
 
@@ -96,8 +100,9 @@ namespace Teste_001.Application.Services
                     Author = item.snippet.channelTitle,
                     CreationDate = item.snippet.publishedAt,
                     Duration = TimeSpan.Parse("0"),
-                    IsActive = true
-                   
+                    IsActive = true,
+                    Description = item.snippet.description
+
                 }).ToList();
 
                 int id = 1;
@@ -109,6 +114,11 @@ namespace Teste_001.Application.Services
                     id++;
                 }
             }
+        }
+
+        public async Task<List<Video>> SearchVideosAsync(string? title, TimeSpan? maxDuration, string? author, DateTime? after, string? q)
+        {
+            return await _videoRepository.SearchVideosAsync(title, maxDuration, author, after, q);
         }
     }
 }

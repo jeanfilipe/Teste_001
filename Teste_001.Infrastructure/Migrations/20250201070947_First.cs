@@ -33,6 +33,7 @@ namespace Teste_001.Infrastructure.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false),
                     VideoId = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     Duration = table.Column<TimeSpan>(type: "TEXT", nullable: false),
                     Author = table.Column<string>(type: "TEXT", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),

@@ -48,5 +48,27 @@ namespace Teste_001.Domain.Repositories
             await _context.Videos.AddRangeAsync(videos);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Video>> SearchVideosAsync(string? title, TimeSpan? maxDuration, string? author, DateTime? after, string? q)
+        {
+            var query = _context.Videos.AsQueryable();
+
+            if (!string.IsNullOrEmpty(title))
+                query = query.Where(v => v.Title.Contains(title));
+
+            if (maxDuration.HasValue)
+                query = query.Where(v => v.Duration <= maxDuration.Value);
+
+            if (!string.IsNullOrEmpty(author))
+                query = query.Where(v => v.Author.Contains(author));
+
+            if (after.HasValue)
+                query = query.Where(v => v.CreationDate >= after.Value);
+
+            if (!string.IsNullOrEmpty(q))
+                query = query.Where(v => v.Title.Contains(q) || v.Description.Contains(q));
+
+            return await query.ToListAsync();
+        }
     }
 }
