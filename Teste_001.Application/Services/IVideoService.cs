@@ -9,6 +9,7 @@ namespace Teste_001.Application.Services
         Task AddAsync(VideoViewModel videoVm);
         Task UpdateAsync(VideoViewModel videoVm);
         Task DeleteAsync(int id);
+        Task SaveVideosFromJsonAsync(string jsonResponse);
     }
 
 }

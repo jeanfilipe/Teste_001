@@ -11,7 +11,7 @@ using Teste_001.Infrastructure.Data.Context;
 namespace Teste_001.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250201043440_First")]
+    [Migration("20250201063311_First")]
     partial class First
     {
         /// <inheritdoc />

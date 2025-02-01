@@ -42,5 +42,11 @@ namespace Teste_001.Domain.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task AddVideosAsync(List<Video> videos)
+        {
+            await _context.Videos.AddRangeAsync(videos);
+            await _context.SaveChangesAsync();
+        }
     }
 }

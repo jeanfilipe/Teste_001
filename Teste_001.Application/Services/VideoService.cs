@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Logging;
+using System.Text.Json;
 using Teste_001.Application.ViewModels;
 using Teste_001.Domain.Repositories;
 using Teste_001.Infrastructure.Entities;
@@ -80,6 +82,33 @@ namespace Teste_001.Application.Services
                 CreationDate = videoVm.CreationDate
             };
         }
-    }
 
+        public async Task SaveVideosFromJsonAsync(string jsonResponse)
+        {
+            var youtubeResponse = JsonSerializer.Deserialize<YouTubeApiResponse>(jsonResponse);
+
+            if (youtubeResponse?.items != null)
+            {
+                var videos = youtubeResponse.items.Select(item => new Video
+                {
+                    VideoId = item.id.videoId,
+                    Title = item.snippet.title,
+                    Author = item.snippet.channelTitle,
+                    CreationDate = item.snippet.publishedAt,
+                    Duration = TimeSpan.Parse("0"),
+                    IsActive = true
+                   
+                }).ToList();
+
+                int id = 1;
+                foreach (var item in videos)
+                {
+                    item.Id = id;
+                    await _videoRepository.AddAsync(item);
+
+                    id++;
+                }
+            }
+        }
+    }
 }
