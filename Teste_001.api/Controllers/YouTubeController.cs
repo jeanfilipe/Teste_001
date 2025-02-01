@@ -15,11 +15,11 @@ namespace Teste_001.api.Controllers
         }
 
         [HttpPost("import")]
-        public async Task<IActionResult> ImportVideos([FromQuery] string apiKey)
+        public async Task<IActionResult> ImportVideos()
         {
             try
             {
-                await _youTubeService.FetchAndSaveVideosAsync(apiKey);
+                await _youTubeService.FetchAndSaveVideosAsync();
                 return Ok(new { message = "Vídeos importados com sucesso!" });
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,15 +11,18 @@ namespace Teste_001.Application.Services
     {
         private readonly HttpClient _httpClient;
         private readonly IVideoService _videoService;
+        private readonly IConfiguration _configuration;
 
-        public YouTubeService(HttpClient httpClient, IVideoService videoService)
+        public YouTubeService(HttpClient httpClient, IVideoService videoService, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _videoService = videoService;
+            _configuration = configuration;
         }
 
-        public async Task FetchAndSaveVideosAsync(string apiKey)
+        public async Task FetchAndSaveVideosAsync()
         {
+            string apiKey = _configuration["Youtube:Key"].ToString();
             string url = $"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&regionCode=BR&q=manipulação%20de%20medicamentos&type=video&publishedAfter=2022-01-01T00%3A00%3A00Z&publishedBefore=2022-12-31T23%3A59%3A59Z&key={apiKey}";
 
             HttpResponseMessage response = await _httpClient.GetAsync(url);
